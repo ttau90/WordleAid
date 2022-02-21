@@ -4,6 +4,8 @@ import scala.util.{Failure, Success, Try}
 
 object WordProcessorUtil {
   def filterWordsNLength(wordList: Seq[String], wordLength: Int): Seq[String] = {
+    val invalids = wordList.filter(_.length != wordLength)
+    println(invalids)
     wordList.filter(_.length == wordLength)
   }
 
@@ -36,7 +38,9 @@ object WordProcessorUtil {
     val letterScores: Map[Char, Double] = calcLetterScores(wordList)
     val positionScores: Array[Map[Char, Double]] = calcPositionScores(wordList)
 
-    wordList.map(word => word -> scoreWordByBoth(word, letterScores, positionScores) * word.distinct.length / word.length)
+    val scoredWords = wordList.map(word => word -> scoreWordByBoth(word, letterScores, positionScores) * word.distinct.length / word.length)
+    
+    scoredWords.sortBy(_._2)(Ordering[Double].reverse)
   }
 
   def scoreWordsLettersOnly(wordList: Seq[String]): Seq[(String, Double)] = {

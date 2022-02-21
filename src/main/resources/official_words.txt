@@ -2312,8 +2312,8 @@ judge
 rower
 artsy
 rural
-shave"
-a=["aahed
+shave
+aahed
 aalii
 aargh
 aarti

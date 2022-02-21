@@ -9,8 +9,4 @@ object FileHelperUtil {
       bufferedSource.getLines.toSeq
     }
   }
-
-  def writeListToFile(wordList: Seq[String]): Unit = {
-
-  }
 }

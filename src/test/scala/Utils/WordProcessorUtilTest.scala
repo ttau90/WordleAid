@@ -116,7 +116,7 @@ class WordProcessorUtilTest extends AnyFunSuite {
 
     val score: Double = WordProcessorUtil.scoreWordByPosition("cat", positionScores)
 
-    assert(score == 2.0)
+    assert(score == 2.0 / 3.0)
   }
 
   test("scoreWordByPosition returns correct score again") {
@@ -141,7 +141,7 @@ class WordProcessorUtilTest extends AnyFunSuite {
 
     val score: Double = WordProcessorUtil.scoreWordByPosition("cab", positionScores)
 
-    assert(score == 1.0)
+    assert(score == 1.0 / 3.0)
   }
 
   test("scoreWordByBoth returns correct score") {
