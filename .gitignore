@@ -1,2 +1,14 @@
+.bloop
+.bsp
+.idea
+.metals
+.vscode
+null
+target
+project/.bloop
+project/project
+project/target
+project/metals.sbt
+
 *.class
 *.log
