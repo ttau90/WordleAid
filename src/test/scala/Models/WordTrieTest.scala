@@ -112,7 +112,7 @@ class WordTrieTest extends AnyFunSuite {
     // Assume correct word is 'apple'
     // Assume guessed word is 'peeep'
     // Words with 1 or 3+ 'p' are removed
-    
+
     // Look into why loppp is invalid
     val wordTrie: WordTrie = WordTrie(Seq("apple", "palle", "loppp"))
     val hints: Vector[HintType] = Vector(HintType.Potential, HintType.Potential, HintType.Incorrect, HintType.Incorrect, HintType.Potential)
@@ -137,6 +137,20 @@ class WordTrieTest extends AnyFunSuite {
     val filter: GuessResultFilter = GuessResultFilter(guessResult)
 
     val expectedWords: Seq[String] = Seq("apple").sorted
+
+    val temp = wordTrie.filterWords(filter)
+    val words = wordTrie.filterWords(filter).getWords.sorted
+
+    assert(words == expectedWords)
+  }
+
+  test("Test") {
+    val wordTrie: WordTrie = WordTrie(Seq("swill"))
+    val hints: Vector[HintType] = Vector(HintType.Correct, HintType.Incorrect, HintType.Correct, HintType.Correct, HintType.Incorrect)
+    val guessResult: GuessResult = GuessResult("soily", hints).get
+    val filter: GuessResultFilter = GuessResultFilter(guessResult)
+
+    val expectedWords: Seq[String] = Seq("swill").sorted
 
     val temp = wordTrie.filterWords(filter)
     val words = wordTrie.filterWords(filter).getWords.sorted

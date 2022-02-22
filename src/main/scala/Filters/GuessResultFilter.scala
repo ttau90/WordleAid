@@ -15,7 +15,7 @@ case class GuessResultFilter private(guessResult: GuessResult, word: String) {
       val allCorrects = guessResult.hints.zipWithIndex
         .filter(pair => pair._1 == HintType.Correct)
         .forall(pair => guessResult.word(pair._2) == word(pair._2))
-      
+
       allCorrects && allPotentials
     } else {
       false
@@ -32,6 +32,7 @@ case class GuessResultFilter private(guessResult: GuessResult, word: String) {
   private def isCurrentWordValid(letter: Char, position: Int): Boolean = {
     if !isLetterInGuessResult(letter) then return true
     if isLetterInPositionValid(letter, position) then return true
+    if isLetterUnknown(letter) then return true
     if isLetterInPositionPotential(letter, position) then return false
     if isLetterInInvalidListOnly(letter) then return false
     isLetterPotential(letter)
@@ -40,6 +41,11 @@ case class GuessResultFilter private(guessResult: GuessResult, word: String) {
   // If letter was not in guess, then it's unknown and therefore valid
   private def isLetterInGuessResult(letter: Char): Boolean = {
     guessResult.word.contains(letter)
+  }
+
+  // If letter is not in potential or invalid list, and is not correct, it's unknown and therefore valid
+  private def isLetterUnknown(letter: Char): Boolean = {
+    !guessResult.invalidChars.contains(letter) && !guessResult.potentialChars.contains(letter)
   }
 
   // If letter is in the list of invalid chars and not in the list of potential chars, it is invalid
