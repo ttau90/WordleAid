@@ -15,13 +15,16 @@ object Main extends App {
 
   @tailrec
   def wordleRound(wordTrie: WordTrie, roundNumber: Int): Unit = {
-    if roundNumber == 6 then return
+    if roundNumber == 7 then {
+      println("Game Over...")
+      return
+    }
 
     val wordsAsList = wordTrie.getWords
 
     val scoredWords: Seq[(String, Double)] = WordProcessorUtil.scoreWords(wordTrie.getWords)
-    println(s"====== Turn $roundNumber ======")
-    println(s"\n\nTop 5 words:\n ${scoredWords.take(5)}")
+    println(s"\n====== Turn $roundNumber ======")
+    println(s"Top 5 words out of ${scoredWords.length}:\n ${scoredWords.take(5)}")
 
     val guessedWord: String = StdIn.readLine("Enter guessed word: ")
 
